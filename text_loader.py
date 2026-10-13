@@ -1,6 +1,7 @@
 import os
 import random
 import glob
+import re
 from typing import List, Tuple
 
 # 模拟WAS相关基础组件（避免外部依赖）
@@ -11,8 +12,10 @@ class MockWASDatabase:
 class cstr:
     def __init__(self, msg):
         self.msg = msg
+    @property
     def error(self):
         return self
+    @property
     def warning(self):
         return self
     def print(self):
@@ -21,6 +24,11 @@ class cstr:
 WAS_HISTORY_DATABASE = "mock_history.db"
 WASDatabase = MockWASDatabase
 TEXT_TYPE = "STRING"
+
+
+def natural_key(path: str):
+    # 与资源管理器一致的自然排序：数字段按数值比较（1.txt < 2.txt < 10.txt）
+    return ([int(p) if p.isdigit() else p for p in re.split(r'(\d+)', path.casefold())], path)
 
 class Moyou_Text_Batch_Loader:
     def __init__(self):
@@ -61,7 +69,7 @@ class Moyou_Text_Batch_Loader:
             if not os.path.exists(self.path):
                 return []
             text_paths = glob.glob(os.path.join(self.path, self.pattern))
-            return sorted(text_paths, key=lambda x: os.path.getctime(x))  # 按创建时间排序（与图像节点一致）
+            return sorted(text_paths, key=natural_key)  # 按文件名自然排序（与资源管理器一致）
 
         def get_text_by_id(self, index: int, encoding: str) -> Tuple[str, str]:
             if 0 <= index < len(self.text_paths):
