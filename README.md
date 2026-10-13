@@ -11,7 +11,7 @@ ComfyUI 批次加载节点包：**每次批量运行时自动加载目录下的�
 | 节点名 | 中文名 | 说明 |
 | --- | --- | --- |
 | Moyou Text Batch Loader | 加载批次文本 | 按批次加载目录下的 txt 文件内容 |
-| Load Image Batch | 加载批次图像 | 按批次加载目录下的图像文件，移植自 [WAS Node Suite](https://github.com/WASasquatch/was-node-suite-comfyui) 的 Load Image Batch，**无需安装 WAS 即可使用** |
+| moyou Load Image Batch | 加载批次图像 | 按批次加载目录下的图像文件，移植自 [WAS Node Suite](https://github.com/WASasquatch/was-node-suite-comfyui) 的 Load Image Batch，**无需安装 WAS 即可使用** |
 
 两个节点均无额外依赖（仅使用 ComfyUI 自带的 torch / numpy / Pillow）。
 
@@ -19,7 +19,7 @@ ComfyUI 批次加载节点包：**每次批量运行时自动加载目录下的�
 
 1. 将 `comfyui-moyou-text&picture-batch-loader` 文件夹复制到 `ComfyUI/custom_nodes` 目录
 2. 重启 ComfyUI
-3. 在节点搜索框中输入 `moyou` 或 `Load Image Batch`（加载批次图像）即可添加节点
+3. 在节点搜索框中输入 `moyou` 即可找到两个节点
 
 ## 节点说明
 
@@ -49,7 +49,7 @@ ComfyUI 批次加载节点包：**每次批量运行时自动加载目录下的�
 
 文件按**文件名自然排序**（数字按数值比较，与资源管理器一致：1.txt → 2.txt → 10.txt）。
 
-### Load Image Batch（加载批次图像）
+### moyou Load Image Batch（加载批次图像）
 
 **输入参数**
 
@@ -79,7 +79,7 @@ ComfyUI 批次加载节点包：**每次批量运行时自动加载目录下的�
 
 ```
 Moyou Text Batch Loader ──text_content──▶ CLIP Text Encode（正向提示词）
-Load Image Batch ───────────image───────▶ VAE Encode / 图像输入等下游节点
+moyou Load Image Batch ──────image──────▶ VAE Encode / 图像输入等下游节点
 ```
 
 1. 两个节点的 `path` 分别指向提示词目录和图像目录
@@ -101,7 +101,7 @@ Load Image Batch ───────────image───────▶ 
 
 - `path` 必须为绝对路径；路径不存在或目录内没有匹配文件时，节点会在控制台报错并输出空值
 - 文本文件解码失败时，`text_content` 会返回 `[解码错误]` 提示，可尝试切换 `encoding`
-- 与 WAS Node Suite 可同时安装，节点互不冲突；本插件的图像节点不依赖 WAS 的数据库文件
+- 与 WAS Node Suite 可同时安装：本插件图像节点显示名带 `moyou` 前缀，便于与 WAS 的 Load Image Batch 区分，两者互不冲突
 
 ## 演示
 

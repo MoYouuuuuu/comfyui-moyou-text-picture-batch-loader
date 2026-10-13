@@ -8,5 +8,5 @@ NODE_CLASS_MAPPINGS = {
 
 NODE_DISPLAY_NAME_MAPPINGS = {
     "Moyou Text Batch Loader": "Moyou Text Batch Loader",
-    "Moyou Image Batch Loader": "Load Image Batch"
+    "Moyou Image Batch Loader": "moyou Load Image Batch"
 }
